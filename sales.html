@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales One</title>
+    <style>
+        #boxes{
+            display: flex;
+        }
+        .region, .goods{
+            margin: .8rem;
+        }
+        #table{
+            margin: 2rem;
+            min-width: 50%;
+        }
+        #table,th,td{
+            border: 1px solid #333;
+            border-collapse: collapse;
+            height: 1.5rem;
+            vertical-align: bottom;
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="boxes">
+        <div id="region-select">
+            <div class="region">
+                <input type="checkbox" id="southh" name="area" value="south">
+                <label for="south">South</label>
+            </div>
+            <div class="region">
+                <input type="checkbox" id="northh" name="area" value="north">
+                <label for="north">North</label>
+            </div>
+            <div class="region">
+                <input type="checkbox" id="eastt" name="area" value="east">
+                <label for="east">East</label>
+            </div>
+            <div class="region">
+                <input type="checkbox" id="westt" name="area" value="west">
+                <label for="west">West</label>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <table id="table">
+            <thead id="thead">
+            </thead>
+            <tbody id="tbody">               
+            </tbody>
+        </table>
+    </div>
+    <script>
+        let southh=document.getElementById("southh");
+        let northh=document.getElementById("northh");
+        let eastt=document.getElementById("eastt");
+        let westt=document.getElementById("westt");
+        let regionSelect=document.getElementById("region-select");
+        let wrapper=document.getElementById("wrapper");
+        let table=document.getElementById("table");
+        let thead=document.getElementById("thead");
+        let tbody=document.getElementById("tbody")
+        let thtr=document.createElement("tr");
+        let month=["Area","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        let area=["east","west","north","south"];
+        let east=["East","400","400","400","400","400","400","400","400","400","400","400","400"];
+        let west=["West","300","300","300","300","300","300","300","300","300","300","300","300"];
+        let north=["North","200","200","200","200","200","200","200","200","200","200","200","200"];
+        let south=["South","100","100","100","100","100","100","100","100","100","100","100","100"];
+        renderTh();
+        function renderTh(){
+            thead.appendChild(thtr);   
+            for(i=0;i<month.length;i++){
+            let th=document.createElement("th");
+            thtr.appendChild(th);
+            th.textContent=month[i];
+            }
+        }  
+        function renderTb(area,direction){
+            let tdtr=document.createElement("tr");
+            tdtr.setAttribute("id",direction);
+            tbody.appendChild(tdtr);
+                for(i=0;i<east.length;i++){
+                    let td=document.createElement("td");
+                    tdtr.appendChild(td);  
+                    td.textContent=area[i];
+                } 
+        } 
+        regionSelect.onchange=function(e){
+            let region;
+            if(e.target.checked==true){
+                if(e.target.value==="east"){
+                    region=east;
+                    renderTb(region,e.target.value);
+                } 
+                if(e.target.value==="west"){
+                    region=west;
+                    renderTb(region,e.target.value);
+                } 
+                if(e.target.value==="north"){
+                    region=north;
+                    renderTb(region,e.target.value);
+                } 
+                if(e.target.value==="south"){
+                    region=south;
+                    renderTb(region,e.target.value);
+                }  
+            }
+            else{
+                tbody.removeChild(document.getElementById(e.target.value));
+            }
+        }    
+        all.onchange=function(e){
+            if(e.target.checked==true){
+                regionSelect.checked=true;
+            }
+        }
+    </script>
+</body>
+</html>
